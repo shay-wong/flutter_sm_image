@@ -16,6 +16,7 @@ dependencies:
   flutter_sm_logger:
     git:
       url: https://github.com/shay-wong/flutter_sm_logger.git
+      ref: main
   loading_animation_widget: ^1.2.1
 
 dev_dependencies:
