@@ -39,7 +39,7 @@ class MImage extends StatelessWidget {
   @protected
   static const ImageProvider _errorImageProvider = AssetImage(
     'assets/images/icons/img_fail.png',
-    package: 'flutter_sm_core',
+    package: 'flutter_sm_image',
   );
 
   @protected
