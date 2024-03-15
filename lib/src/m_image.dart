@@ -1,4 +1,6 @@
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sm_logger/sm_logger.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -80,6 +82,10 @@ class MImage extends StatelessWidget {
     void Function(Object)? errorListener,
     String? package,
     AssetBundle? bundle,
+    double scale = 1.0,
+    BaseCacheManager? cacheManager,
+    String? cacheKey,
+    ImageRenderMethodForWeb imageRenderMethodForWeb = ImageRenderMethodForWeb.HtmlImage,
   }) {
     if (source != null && source.isNotEmpty) {
       final uri = Uri.tryParse(source);
@@ -90,6 +96,10 @@ class MImage extends StatelessWidget {
           maxHeight: maxHeight,
           headers: headers ?? {'Cache-Control': 'max-age=2592000'},
           errorListener: errorListener,
+          scale: scale,
+          cacheKey: cacheKey,
+          imageRenderMethodForWeb: imageRenderMethodForWeb,
+          cacheManager: cacheManager,
         );
       }
       return AssetImage(
