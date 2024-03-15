@@ -78,6 +78,8 @@ class MImage extends StatelessWidget {
     int? maxHeight,
     Map<String, String>? headers,
     void Function(Object)? errorListener,
+    String? package,
+    AssetBundle? bundle,
   }) {
     if (source != null && source.isNotEmpty) {
       final uri = Uri.tryParse(source);
@@ -90,10 +92,20 @@ class MImage extends StatelessWidget {
           errorListener: errorListener,
         );
       }
-      return AssetImage(source);
+      return AssetImage(
+        source,
+        package: package,
+        bundle: bundle,
+      );
     }
     if (placeholderImage != null) return placeholderImage;
-    if (placeholder != null && placeholder.isNotEmpty) return AssetImage(placeholder);
+    if (placeholder != null && placeholder.isNotEmpty) {
+      return AssetImage(
+        placeholder,
+        package: package,
+        bundle: bundle,
+      );
+    }
     return _errorImageProvider;
   }
 
