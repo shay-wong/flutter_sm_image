@@ -4,6 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sm_logger/sm_logger.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../generated/assets.gen.dart';
 import 'm_cached_netwrok_image.dart';
 import 'm_image_provider.dart';
 
@@ -39,10 +40,7 @@ class MImage extends StatelessWidget {
   final double? width;
 
   @protected
-  static const ImageProvider _errorImageProvider = AssetImage(
-    'assets/images/icons/img_fail.png',
-    package: 'flutter_sm_image',
-  );
+  static ImageProvider get _errorImageProvider => Assets.imgFail.provider();
 
   @protected
   Widget get _errorImage {
