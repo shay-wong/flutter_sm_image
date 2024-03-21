@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'circle_avatar_example.dart';
+import 'image_example.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hello World!'),
-        ),
-        body: const MCircleAvatarExample(),
+        body: MImageExample(),
       ),
     );
   }

@@ -43,7 +43,7 @@ class MImageProvider extends ImageProvider<MImageProvider> {
 
   @override
   bool operator ==(Object other) {
-    if (other is CachedNetworkImageProvider) {
+    if (other is MImageProvider) {
       return ((cacheKey ?? url) == (other.cacheKey ?? other.url)) &&
           scale == other.scale &&
           maxHeight == other.maxHeight &&
