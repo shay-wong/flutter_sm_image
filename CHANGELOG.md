@@ -1,4 +1,4 @@
-## 0.0.2-dev.1
+## 0.0.2-dev.2
 
 * add circle avatar.
 

@@ -83,7 +83,7 @@ class _MCircleAvatarState extends State<MCircleAvatar> {
     ImageProvider? defaultProvider,
   }) {
     ImageProvider? effectiveImage;
-    BoxFit? fit = source != null && source.isNotEmpty || defaultProvider != null ? widget.fit ?? BoxFit.cover : null;
+    BoxFit? fit = widget.fit ?? BoxFit.cover;
     if (_lastException != null) {
       effectiveImage =
           widget.onBackgroundImageErrorBuilder?.call(context, _lastException!, _lastStack) ?? Assets.imgFail.provider();
@@ -97,6 +97,9 @@ class _MCircleAvatarState extends State<MCircleAvatar> {
                   bundle: widget.bundle,
                 )
               : defaultProvider);
+      if (source != null && source.isEmpty == true) {
+        fit = widget.errorFit;
+      }
     }
 
     return effectiveImage != null

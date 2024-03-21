@@ -1,7 +1,8 @@
-import 'package:example/generated/assets.gen.dart';
 import 'package:example_package/example_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sm_image/sm_image.dart';
+
+import 'generated/assets.gen.dart';
 
 class MCircleAvatarExample extends StatelessWidget {
   const MCircleAvatarExample({super.key});
@@ -14,9 +15,14 @@ class MCircleAvatarExample extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const CircleAvatar(),
           const MCircleAvatar(
             source: null,
+            placeholder: 'assets/images/avatar.png',
+            diameter: 100,
+            backgroundColor: Colors.amber,
+          ),
+          const MCircleAvatar(
+            source: '',
             placeholder: 'assets/images/avatar.png',
             diameter: 100,
             backgroundColor: Colors.amber,
