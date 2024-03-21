@@ -1,12 +1,18 @@
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_sm_logger/sm_logger.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:octo_image/octo_image.dart';
 
 import '../generated/assets.gen.dart';
 import 'm_cached_netwrok_image.dart';
 import 'm_image_provider.dart';
+
+typedef MErrorWidget = Widget Function(
+  BuildContext context,
+  String url,
+  Object error,
+);
 
 class MImage extends StatelessWidget {
   const MImage(
@@ -23,12 +29,14 @@ class MImage extends StatelessWidget {
     this.scale,
     this.package,
     this.bundle,
+    this.errorWidget,
   })  : assert(placeholder == null || progressIndicatorBuilder == null),
         width = width ?? size,
         height = height ?? size;
 
   final AssetBundle? bundle;
   final Color? color;
+  final MErrorWidget? errorWidget;
   final BoxFit? fit;
   final double? height;
   final String? package;
@@ -40,9 +48,6 @@ class MImage extends StatelessWidget {
   final double? width;
 
   @protected
-  static ImageProvider get _errorImageProvider => Assets.imgFail.provider();
-
-  @protected
   Widget get _errorImage {
     return Image(
       image: _errorImageProvider,
@@ -52,6 +57,9 @@ class MImage extends StatelessWidget {
       color: color,
     );
   }
+
+  @protected
+  static ImageProvider get _errorImageProvider => Assets.imgFail.provider();
 
   @protected
   Widget get _placeholderImage {
@@ -77,13 +85,13 @@ class MImage extends StatelessWidget {
     int? maxWidth,
     int? maxHeight,
     Map<String, String>? headers,
-    void Function(Object)? errorListener,
+    MErrorListener? errorListener,
     String? package,
     AssetBundle? bundle,
     double scale = 1.0,
     BaseCacheManager? cacheManager,
     String? cacheKey,
-    ImageRenderMethodForWeb imageRenderMethodForWeb = ImageRenderMethodForWeb.HtmlImage,
+    MImageRenderMethodForWeb imageRenderMethodForWeb = MImageRenderMethodForWeb.HtmlImage,
   }) {
     if (source != null && source.isNotEmpty) {
       final uri = Uri.tryParse(source);
@@ -132,14 +140,15 @@ class MImage extends StatelessWidget {
               ((placeholder == null && showIndicator) ? (ctx, url, progress) => _placeholderIndicator : null),
           placeholder: placeholder ??
               ((progressIndicatorBuilder == null && !showIndicator) ? (ctx, url) => _placeholderImage : null),
-          errorWidget: (ctx, url, e) {
+          errorWidget: errorWidget ??
+              (ctx, url, e) {
             logger.e(e);
             return _errorImage;
           },
         );
       }
       // OPTIMIZE: loadingBuilder 和 frameBuilder
-      return Image(
+      return OctoImage(
         image: scale != null
             ? ExactAssetImage(source!, bundle: bundle, scale: scale!, package: package)
             : AssetImage(source!, bundle: bundle, package: package),
@@ -147,7 +156,30 @@ class MImage extends StatelessWidget {
         height: height,
         fit: fit,
         color: color,
-        errorBuilder: (ctx, obj, trace) => _errorImage,
+        progressIndicatorBuilder: progressIndicatorBuilder != null || (placeholder == null && showIndicator)
+            ? (context, progress) {
+                int? totalSize;
+                var downloaded = 0;
+                if (progress != null) {
+                  totalSize = progress.expectedTotalBytes;
+                  downloaded = progress.cumulativeBytesLoaded;
+                }
+                return progressIndicatorBuilder?.call(
+                      context,
+                      source!,
+                      DownloadProgress(
+                        source!,
+                        totalSize,
+                        downloaded,
+                      ),
+                    ) ??
+                    _placeholderIndicator;
+              }
+            : null,
+        placeholderBuilder: placeholder != null || (progressIndicatorBuilder == null && !showIndicator)
+            ? (ctx) => _placeholderImage
+            : null,
+        errorBuilder: (ctx, obj, trace) => errorWidget?.call(ctx, source!, obj) ?? _errorImage,
       );
     }
     return placeholder != null ? placeholder!(context, '') : _placeholderImage;

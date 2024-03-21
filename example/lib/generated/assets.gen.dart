@@ -12,8 +12,6 @@ import 'package:flutter/widgets.dart';
 class Assets {
   Assets._();
 
-  static const String package = 'flutter_sm_image';
-
   static const AssetGenImage avatar = AssetGenImage('assets/avatar.png');
   static const AssetGenImage avatar1 = AssetGenImage('assets/avatar1.png');
   static const AssetGenImage imgFail = AssetGenImage('assets/img_fail.png');
@@ -26,8 +24,6 @@ class AssetGenImage {
   const AssetGenImage(this._assetName);
 
   final String _assetName;
-
-  static const String package = 'flutter_sm_image';
 
   Image image({
     Key? key,
@@ -49,7 +45,7 @@ class AssetGenImage {
     bool matchTextDirection = false,
     bool gaplessPlayback = false,
     bool isAntiAlias = false,
-    @Deprecated('Do not specify package for a generated library asset') String? package = package,
+    String? package,
     FilterQuality filterQuality = FilterQuality.low,
     int? cacheWidth,
     int? cacheHeight,
@@ -84,7 +80,7 @@ class AssetGenImage {
 
   ImageProvider provider({
     AssetBundle? bundle,
-    @Deprecated('Do not specify package for a generated library asset') String? package = package,
+    String? package,
   }) {
     return AssetImage(
       _assetName,
@@ -95,5 +91,5 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  String get keyName => 'packages/flutter_sm_image/$_assetName';
+  String get keyName => _assetName;
 }

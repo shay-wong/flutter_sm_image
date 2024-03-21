@@ -11,23 +11,54 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-class MImageProvider extends CachedNetworkImageProvider {
+typedef MErrorListener = void Function(Object exception, StackTrace? stackTrace);
+
+enum MImageRenderMethodForWeb {
+  HtmlImage, // ignore: constant_identifier_names
+  HttpGet, // ignore: constant_identifier_names
+}
+
+class MImageProvider extends ImageProvider<MImageProvider> {
   const MImageProvider(
-    super.url, {
-    super.maxHeight,
-    super.maxWidth,
-    super.scale = 1.0,
-    super.errorListener,
-    super.headers,
-    super.cacheManager,
-    super.cacheKey,
-    super.imageRenderMethodForWeb = ImageRenderMethodForWeb.HtmlImage,
+    this.url, {
+    this.maxHeight,
+    this.maxWidth,
+    this.scale = 1.0,
+    this.errorListener,
+    this.headers,
+    this.cacheManager,
+    this.cacheKey,
+    this.imageRenderMethodForWeb = MImageRenderMethodForWeb.HtmlImage,
   });
 
+  final String? cacheKey;
+  final BaseCacheManager? cacheManager;
+  final MErrorListener? errorListener;
+  final Map<String, String>? headers;
+  final MImageRenderMethodForWeb imageRenderMethodForWeb;
+  final int? maxHeight;
+  final int? maxWidth;
+  final double scale;
+  final String url;
+
   @override
-  ImageStreamCompleter loadImage(CachedNetworkImageProvider key, ImageDecoderCallback decode) {
+  bool operator ==(Object other) {
+    if (other is CachedNetworkImageProvider) {
+      return ((cacheKey ?? url) == (other.cacheKey ?? other.url)) &&
+          scale == other.scale &&
+          maxHeight == other.maxHeight &&
+          maxWidth == other.maxWidth;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => Object.hash(cacheKey ?? url, scale, maxHeight, maxWidth);
+
+  @override
+  ImageStreamCompleter loadImage(MImageProvider key, ImageDecoderCallback decode) {
     final chunkEvents = StreamController<ImageChunkEvent>();
-    return MultiImageStreamCompleter(
+    final imageStreamCompleter = MultiImageStreamCompleter(
       codec: _loadImageAsync(key, chunkEvents, decode),
       chunkEvents: chunkEvents.stream,
       scale: key.scale,
@@ -39,10 +70,32 @@ class MImageProvider extends CachedNetworkImageProvider {
         );
       },
     );
+
+    if (errorListener != null) {
+      imageStreamCompleter.addListener(
+        ImageStreamListener(
+          (image, synchronousCall) {},
+          onError: (Object error, StackTrace? trace) {
+            errorListener?.call(error, trace);
+          },
+        ),
+      );
+    }
+    return imageStreamCompleter;
   }
 
+  @override
+  Future<MImageProvider> obtainKey(
+    ImageConfiguration configuration,
+  ) {
+    return SynchronousFuture<MImageProvider>(this);
+  }
+
+  @override
+  String toString() => 'CachedNetworkImageProvider("$url", scale: $scale)';
+
   Stream<ui.Codec> _loadImageAsync(
-    CachedNetworkImageProvider key,
+    MImageProvider key,
     StreamController<ImageChunkEvent> chunkEvents,
     ImageDecoderCallback decode,
   ) {
@@ -56,7 +109,7 @@ class MImageProvider extends CachedNetworkImageProvider {
       maxHeight,
       maxWidth,
       headers,
-      imageRenderMethodForWeb,
+      ImageRenderMethodForWeb.values[imageRenderMethodForWeb.index],
       () => PaintingBinding.instance.imageCache.evict(key),
     );
   }
