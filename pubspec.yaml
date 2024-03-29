@@ -1,7 +1,7 @@
-name: flutter_sm_image
+name: sm_image
 description: "A Flutter package that provides a widget to load images from the
   web with caching support."
-version: 0.0.2-dev.3
+version: 0.0.2
 homepage: "https://github.com/shay-wong/flutter_sm_models"
 repository: "https://github.com/shay-wong/flutter_sm_models"
 issue_tracker: "https://github.com/shay-wong/flutter_sm_models/issues"
@@ -24,14 +24,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.1
-  flutter_sm_logger: ^0.0.3
   loading_animation_widget: ^1.2.1
   octo_image: ^2.0.0
+  sm_logger: ^0.0.7
 
 dev_dependencies:
-  build_runner: ^2.4.8
+  build_runner: ^2.4.9
   flutter_gen_runner: ^5.4.0
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
   flutter_test:
     sdk: flutter
 

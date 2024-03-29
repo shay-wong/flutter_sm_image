@@ -1,3 +1,7 @@
+## 0.0.2
+
+* rename.
+
 ## 0.0.2-dev.3
 
 * fix failure to load network image.

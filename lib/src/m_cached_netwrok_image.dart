@@ -102,6 +102,7 @@ class MCachedNetworkImage extends StatelessWidget {
 
   final MImageProvider _image;
 
+  MImageProvider get image => _image;
   static CacheManagerLogLevel get logLevel => CacheManager.logLevel;
 
   static Future<bool> evictFromCache(

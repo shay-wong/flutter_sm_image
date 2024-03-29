@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sm_image/sm_image.dart';
+import 'package:sm_image/sm_image.dart';
 
 class ExamplePage extends StatelessWidget {
   const ExamplePage({super.key});

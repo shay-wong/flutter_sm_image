@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         body: MImageExample(),
+        // body: MCircleAvatarExample(),
       ),
     );
   }

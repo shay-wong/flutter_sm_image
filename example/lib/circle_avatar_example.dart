@@ -1,6 +1,6 @@
 import 'package:example_package/example_package.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sm_image/sm_image.dart';
+import 'package:sm_image/sm_image.dart';
 
 import 'generated/assets.gen.dart';
 

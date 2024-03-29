@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 class Assets {
   Assets._();
 
-  static const String package = 'flutter_sm_image';
+  static const String package = 'sm_image';
 
   static const AssetGenImage avatar = AssetGenImage('assets/avatar.png');
   static const AssetGenImage avatar1 = AssetGenImage('assets/avatar1.png');
@@ -27,7 +27,7 @@ class AssetGenImage {
 
   final String _assetName;
 
-  static const String package = 'flutter_sm_image';
+  static const String package = 'sm_image';
 
   Image image({
     Key? key,
@@ -95,5 +95,5 @@ class AssetGenImage {
 
   String get path => _assetName;
 
-  String get keyName => 'packages/flutter_sm_image/$_assetName';
+  String get keyName => 'packages/sm_image/$_assetName';
 }
