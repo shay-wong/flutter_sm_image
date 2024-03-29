@@ -1,7 +1,7 @@
 name: sm_image
 description: "A Flutter package that provides a widget to load images from the
   web with caching support."
-version: 0.0.2+1
+version: 0.0.3
 homepage: "https://github.com/shay-wong/flutter_sm_image"
 repository: "https://github.com/shay-wong/flutter_sm_image"
 issue_tracker: "https://github.com/shay-wong/flutter_sm_image/issues"
