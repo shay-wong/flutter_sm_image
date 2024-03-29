@@ -4,7 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:sm_logger/sm_logger.dart';
 
-import '../generated/assets.gen.dart';
+import 'generated/assets.gen.dart';
 import 'm_cached_netwrok_image.dart';
 import 'm_image_provider.dart';
 

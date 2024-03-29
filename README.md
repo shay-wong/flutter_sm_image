@@ -1,28 +1,28 @@
-# flutter_sm_image
+# sm_image
 
-flutter_sm_image 是一个封装了 cached_network_image 的 flutter 图片加载包，提供了图片加载，缓存，加载过程显示动画等功能。
+sm_image is a Flutter image loading package that wraps cached_network_image, offering image loading, caching, and animation during the loading process.
 
-## 安装
+## Installing
 
-运行下面的命令:
+Depend on it
 
-Dart:
+Run this command:
 
-```
-dart pub add flutter_sm_image
-```
-
-Flutter:
+With Dart:
 
 ```
-flutter pub add flutter_sm_image
+dart pub add sm_image
 ```
 
-或者在 `pubspec.yaml` 文件中添加依赖并运行`dart pub get`：
+With Flutter:
+
+```
+flutter pub add sm_image
+```
+
+Or add the dependency to your `pubspec.yaml` file and run `dart pub get`:
 
 ```
 dependencies:
-  flutter_sm_image: ^0.0.1
+  sm_image: ^0.0.1
 ```
-
-<!-- ## 使用 -->

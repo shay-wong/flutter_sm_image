@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sm_image/sm_image.dart';
 
+import 'generated/assets.gen.dart';
+
 class MImageExample extends StatelessWidget {
   const MImageExample({super.key});
 
@@ -28,7 +30,13 @@ class MImageExample extends StatelessWidget {
             image: const MImage(
               'https://qcloudimg.tencent-cloud.cn/raw/2c6e4177fcca03de1447a04d8ff76d9c.png',
             ).image,
-          )
+          ),
+          const SizedBox(height: 10),
+          MImage(
+            Assets.avatar.keyName,
+            size: 100,
+            fit: BoxFit.cover,
+          ),
         ],
       ),
     );

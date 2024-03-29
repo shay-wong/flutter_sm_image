@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../generated/assets.gen.dart';
 import '../sm_image.dart';
+import 'generated/assets.gen.dart';
 
 typedef MImageErrorProviderBuilder = ImageProvider Function(
   BuildContext context,

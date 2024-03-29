@@ -14,7 +14,6 @@ pubspec.lock
 ios/
 android/
 demo/
-example/
 doc/api/
 .env*
 *.dart.js
