@@ -1,3 +1,9 @@
+# sm_image
+
+## 0.0.4
+
+* upgrade pubspec.
+
 ## 0.0.3
 
 * chore.
